@@ -13,14 +13,24 @@ def getExperimentIdsDB(con):
     return ids
 
 
-def getBabiesCommonInExp(con, exp_id1, exp_id2):
+def getBabiesCommonInExp(con, exp_id1, exp_id2, language = None):
     """
     WRITE WHAT THIS FUNCTION DOES
     """
-    
     cmd = "select baby_id from data where experiment_id = %d intersect select baby_id from data where experiment_id =%d"
+        
+    if language:
+        language_filt = str(tuple(language))
+        cmd = "select baby_id from data where experiment_id = %d and language in %s intersect select baby_id from data where experiment_id =%d and language in %s"
+        if len(language) == 1:
+            language_filt = language_filt.replace(',','')
+            
+    
     cur = con.cursor()
-    cur.execute(cmd%(exp_id1, exp_id2))
+    if language:
+        cur.execute(cmd%(exp_id1, language_filt, exp_id2, language_filt))
+    else:
+        cur.execute(cmd%(exp_id1, exp_id2))
     babies = cur.fetchall()
     babies = [b[0] for b in babies]
     
