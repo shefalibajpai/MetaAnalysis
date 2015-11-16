@@ -41,16 +41,7 @@ def plotInterExpBabyCount(plotName = -1, username = USERNAME, database = DATABAS
     ax = fig.add_subplot(111)
     ax.set_aspect(1)
     ax.grid(which='major')
-    #cmap_local = plt.get_cmap('binary', np.max(mtx)-np.min(mtx)+1)
-    res = ax.matshow(mtx, #cmap=plt.cm.binary, 
-                    interpolation='nearest', aspect='1', cmap=plt.cm.GnBu,
-                    ##Commenting out this line sets labels correctly,
-                    ##but the grid is off
-                    extent=[0, width, height, 0])
-    #ticks = np.arange(np.min(conf_arr),np.max(conf_arr)+1)
-    #tickpos = np.linspace(ticks[0] , ticks[-1] , len(ticks));
-    #cax = plt.colorbar(mat, ticks=tickpos)
-    #cax.set_ticklabels(ticks)
+    res = ax.matshow(mtx, nterpolation='nearest', aspect='1', cmap=plt.cm.GnBu, extent=[0, width, height, 0])
     
     for x in range(width):
         for y in range(height):
